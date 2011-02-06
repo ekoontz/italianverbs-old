@@ -5,4 +5,6 @@
                  [slice "0.4.0-SNAPSHOT"]
                  [org.apache.lucene/lucene-core "3.0.2"]
                  [org.clojure/clojure "1.2.0"]
-                 [org.clojure/clojure-contrib "1.2.0"]])
+                 [org.clojure/clojure-contrib "1.2.0"]
+                 [compojure "0.6.0-RC3"]
+                 [net.defn.ring/ring-jetty-adapter "0.2.0"]])
