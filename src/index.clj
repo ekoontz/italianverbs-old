@@ -1,4 +1,4 @@
-(ns slice.example
+(ns italianverbs
   (:use slice.core
         slice.compojure5                ; make slices render automatically
         uteal.core                      ; defs FTW
@@ -62,16 +62,23 @@
 (slice header [text & [id]]
   (html [:h1 {:id (wo# id)} text]))
 
+(defn navigation []
+  (html 
+   [:div [:a {:href "/"} "top"]]
+   [:div [:a {:href "/quiz/"} "take a quiz..."]]
+   [:div [:a {:href "http://github.com/ekoontz/italianverbs"} "source code"]]
+))
+
 (slice site-header
   (mouse-effect logo-id*)
   (header company-name* logo-id*)
+  ;; navigation
+  (navigation)
   (css [logo-id*
         big-text*
         :color site-color*]))
 
-;;; impure slices and slices that use impure slices aren't memoized
-(slice ^{:impure true} random-number
-  (html [:p "Welcome user: " (rand-int 100)]))
+(load-file "src/table.clj")
 
 (slice app-section
   (header app-name*)
@@ -79,15 +86,18 @@
   download-button)
 
 (slice main-page
-  (title company-name*)
-  site-header
-  app-section
-  subscribe-button
-  random-number)
+       ;;FIXME: title is not being displayed.
+       (title company-name*)
+       site-header
+       app-section
+       subscribe-button)
+
+(load-file "src/quiz.clj")
 
 (defroutes app
       (GET "/"          _ (main-page))
       (GET "/subscribe" _ (slices site-header subscribe-button))
+      (GET "/quiz*" _ (slices site-header quiz))
       (GET "/test"      r (slices jquery
                                   (dom (alert ~(:remote-addr r)))
                                   (html [:h1 "Hi"])
