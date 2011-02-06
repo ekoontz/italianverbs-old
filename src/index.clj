@@ -16,7 +16,7 @@
 
   ;; colors
   site-color*      "blue"
-  important-color* "red"
+  important-color* "lightgreen"
 
   ;; ids
   logo-id*         "#logo"
@@ -29,8 +29,8 @@
   ;; mixins
   rounded-corners* (list :-moz-border-radius :5px
                          :-webkit-border-radius :5px)
-  big-text*        (list :font-size "300%")
-  special-button*  (list rounded-corners* big-text*))
+  big-text*        (list :font-size "100%")
+  special-button*  (list rounded-corners*))
 
 (slice awesome-effect
   jquery
@@ -71,17 +71,18 @@
 
 ;;; impure slices and slices that use impure slices aren't memoized
 (slice ^{:impure true} random-number
-  (html [:p (rand-int 100)]))
+  (html [:p "Welcome user: " (rand-int 100)]))
 
 (slice app-section
   (header app-name*)
+  verb-table
   download-button)
 
 (slice main-page
   (title company-name*)
   site-header
-  subscribe-button
   app-section
+  subscribe-button
   random-number)
 
 (defroutes app
