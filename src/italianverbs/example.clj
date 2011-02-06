@@ -11,8 +11,8 @@
 
 (defs
   ;; strings
-  company-name*    "Cool Company"
-  app-name*        "Awesome App"
+  company-name*    "Verbi Italiani by Eugene Koontz"
+  app-name*        "Verbi Italiani"
 
   ;; colors
   site-color*      "blue"
@@ -52,7 +52,7 @@
 (slice download-button
   (on-click-alert download-id* "Ain't slices cool?")
   (css [download-id* special-button*])
-  (button download-id* "Download!" important-color*))
+  (button download-id* "Download Android App!" important-color*))
 
 (slice subscribe-button
   jquery
