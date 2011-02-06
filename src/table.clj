@@ -6,14 +6,14 @@
         ring.adapter.jetty
         hiccup.form-helpers))
 
+;; figure out differences between hash-map and hash-set..
+(def lexicon (hash-map))
+
 (slice verb-row [italian]
        (html  
                [:tr 
                   [:td italian] [:td (get lexicon italian)] 
                ]))
-
-;; figure out differences between hash-map and hash-set
-(def lexicon (hash-map))
 
 (defn add-verb [italian english]
   (def lexicon (assoc lexicon italian english)))

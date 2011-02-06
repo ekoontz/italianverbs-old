@@ -62,9 +62,17 @@
 (slice header [text & [id]]
   (html [:h1 {:id (wo# id)} text]))
 
+(defn navigation []
+  (html 
+   [:div [:a {:href "/"} "top"]]
+   [:div [:a {:href "quiz/"} "take a quiz..."]]
+))
+
 (slice site-header
   (mouse-effect logo-id*)
   (header company-name* logo-id*)
+  ;; navigation
+  (navigation)
   (css [logo-id*
         big-text*
         :color site-color*]))
@@ -72,6 +80,8 @@
 ;;; impure slices and slices that use impure slices aren't memoized
 (slice ^{:impure true} random-number
   (html [:p "Welcome user: " (rand-int 100)]))
+
+(load-file "src/table.clj")
 
 (slice app-section
   (header app-name*)
@@ -85,9 +95,13 @@
   subscribe-button
   random-number)
 
+
+(load-file "src/quiz.clj")
+
 (defroutes app
       (GET "/"          _ (main-page))
       (GET "/subscribe" _ (slices site-header subscribe-button))
+      (GET "/quiz/" _ (slices site-header quiz))
       (GET "/test"      r (slices jquery
                                   (dom (alert ~(:remote-addr r)))
                                   (html [:h1 "Hi"])
