@@ -17,7 +17,9 @@
 (add-verb "scrivere" "to write")
 (add-verb "correggere" "to correct")
 (add-verb "leggere" "to read")
+(add-verb "mangiere" "to eat")
 (add-verb "parlere" "to speak")
+(add-verb "pranzare" "to eat lunch")
 
 (slice verb-table
        (html [:table 

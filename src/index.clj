@@ -11,7 +11,7 @@
 
 (defs
   ;; strings
-  company-name*    "Verbi Italiani by Eugene Koontz"
+  company-name*    "foofers.org presents Verbi Italiani"
   app-name*        "Verbi Italiani"
 
   ;; colors
@@ -60,13 +60,14 @@
   (button subscribe-id* "Subscribe!" important-color*))
 
 (slice header [text & [id]]
-  (html [:h1 {:id (wo# id)} text]))
+       (title "Verbi Italiani")
+       (html [:h1 {:id (wo# id)} text]))
 
 (defn navigation []
   (html 
-   [:div [:a {:href "/"} "top"]]
-   [:div [:a {:href "/quiz/"} "take a quiz..."]]
-   [:div [:a {:href "http://github.com/ekoontz/italianverbs"} "source code"]]
+   [:div {:style "float:left;width:auto;padding:10px;"} [:a {:href "/"} "top"]]
+   [:div {:style "float:left;width:auto;padding:10px;"} [:a {:href "/quiz/"} "take a quiz..."]]
+   [:div {:style "float:left;width:auto;padding:10px;"} [:a {:href "http://github.com/ekoontz/italianverbs"} "source code"]]
 ))
 
 (slice site-header
@@ -94,10 +95,18 @@
 
 (load-file "src/quiz.clj")
 
+(def sessions (hash-map))
+
+(def sessions (assoc sessions 'reqid 0))
+
+(slice update-state
+       (let [update (def sessions (assoc sessions 'reqid (+ 1 (get sessions 'reqid))))]
+            (html [:div {:style "float:left;border:1px dashed green"} (str "request_id: " (get sessions 'reqid))])))
+
 (defroutes app
       (GET "/"          _ (main-page))
       (GET "/subscribe" _ (slices site-header subscribe-button))
-      (GET "/quiz*" _ (slices site-header quiz))
+      (GET "/quiz*" _ (slices site-header quiz update-state))
       (GET "/test"      r (slices jquery
                                   (dom (alert ~(:remote-addr r)))
                                   (html [:h1 "Hi"])
