@@ -70,6 +70,12 @@
    [:div {:style "float:left;width:auto;padding:10px;"} [:a {:href "http://github.com/ekoontz/italianverbs"} "source code"]]
 ))
 
+(defn navigation []
+  (html 
+   [:div [:a {:href "/"} "top"]]
+   [:div [:a {:href "quiz/"} "take a quiz..."]]
+))
+
 (slice site-header
   (mouse-effect logo-id*)
   (header company-name* logo-id*)
@@ -78,6 +84,8 @@
   (css [logo-id*
         big-text*
         :color site-color*]))
+
+(load-file "src/table.clj")
 
 (load-file "src/table.clj")
 
@@ -102,6 +110,9 @@
 (slice update-state
        (let [update (def sessions (assoc sessions 'reqid (+ 1 (get sessions 'reqid))))]
             (html [:div {:style "float:left;border:1px dashed green"} (str "request_id: " (get sessions 'reqid))])))
+
+
+(load-file "src/quiz.clj")
 
 (defroutes app
       (GET "/"          _ (main-page))

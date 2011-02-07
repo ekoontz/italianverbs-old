@@ -3,6 +3,9 @@
 ;; figure out differences between hash-map and hash-set..
 (def lexicon (hash-map))
 
+;; figure out differences between hash-map and hash-set..
+(def lexicon (hash-map))
+
 (slice verb-row [italian]
        (html  
                [:tr 
